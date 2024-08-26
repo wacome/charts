@@ -20,6 +20,9 @@ workload:
             DOKPLOY_NODE_NAME: {{ .Values.dokployConfig.nodeName }}
             NPM_CONFIG_REGISTRY: {{ .Values.dokployConfig.npmRegistry }}
             PNPM_REGISTRY: {{ .Values.dokployConfig.pnpmRegistry }}
+            REDIS_HOST: {{.Values.dokployConfig.redis_host}}
+            REDIS_PORT: {{.Values.dokployConfig.redis_port}}
+            REDIS_PASSWORD: {{.Values.dokployConfig.redis_password}}
           {{ with .Values.dokployConfig.additionalEnvs }}
           envList:
             {{ range $env := . }}
@@ -99,5 +102,11 @@ scaleCertificate:
   dokploy-cert:
     enabled: true
     id: {{ .Values.dokployNetwork.certificateID }}
+
+dependencies:
+  redis:
+    type: deployment
+    deploymentName: {{ .Release.Name }}-redis-master
+    containerName: dokploy-redis
   {{- end }}
 {{- end -}}
