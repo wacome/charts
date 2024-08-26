@@ -8,7 +8,13 @@ dokployConfig:
   nodeName: "dokploy_node"
   npmRegistry: "https://registry.npmmirror.com"
   pnpmRegistry: "https://registry.npmmirror.com"
-  additionalEnvs: []
+  additionalEnvs:
+    - name: REDIS_HOST
+      value: "dokploy-redis"
+    - name: REDIS_PORT
+      value: "6379"
+    - name: REDIS_PASSWORD
+      value: "2469"
 
 dokployNetwork:
   httpPort: 9000
@@ -50,6 +56,13 @@ service:
   type: ClusterIP
   port: 9000
   targetPort: 3000
+
+redis:
+  enabled: true
+  architecture: standalone
+  auth:
+    enabled: true
+    password: "2469"
 
 ingress:
   enabled: false
