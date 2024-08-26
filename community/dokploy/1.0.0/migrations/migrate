@@ -1,0 +1,16 @@
+#!/usr/bin/python3
+import json
+import os
+import sys
+
+def migrate(values):
+    # 在这里添加任何必要的迁移逻辑
+    return values
+
+if __name__ == '__main__':
+    if len(sys.argv) != 2:
+        exit(1)
+
+    if os.path.exists(sys.argv[1]):
+        with open(sys.argv[1], 'r') as f:
+            print(json.dumps(migrate(json.loads(f.read()))))

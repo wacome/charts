@@ -1,0 +1,51 @@
+image:
+  repository: dokploy/dokploy
+  tag: latest
+  pullPolicy: IfNotPresent
+
+dokployConfig:
+  password: ""
+  nodeName: "dokploy_node"
+  additionalEnvs: []
+
+dokployNetwork:
+  httpPort: 3000
+  hostNetwork: false
+  certificateID: null
+
+dokployStorage:
+  data:
+    type: ixVolume
+    ixVolumeConfig:
+      datasetName: data
+  additionalStorages: []
+
+dokployRunAs:
+  user: 1000
+  group: 1000
+
+resources:
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+  requests:
+    cpu: 500m
+    memory: 512Mi
+
+persistence:
+  data:
+    enabled: true
+    mountPath: /app/data
+    size: 1Gi
+
+securityContext:
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+
+service:
+  type: ClusterIP
+  port: 3000
+
+ingress:
+  enabled: false

@@ -1,0 +1,30 @@
+image:
+  repository: dokploy/dokploy
+  pullPolicy: IfNotPresent
+  tag: latest
+
+resources:
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+
+dokployConfig:
+  password: ''
+  nodeName: dokploy_node
+  additionalEnvs: []
+
+dokployRunAs:
+  user: 1000
+  group: 1000
+
+dokployNetwork:
+  httpPort: 3000
+  hostNetwork: false
+  certificateID:
+
+dokployStorage:
+  data:
+    type: ixVolume
+    ixVolumeConfig:
+      datasetName: data
+  additionalStorages: []

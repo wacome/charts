@@ -1,0 +1,17 @@
+icon_url: https://github.com/wacome/charts/dokploy-icon.png
+categories:
+  - development
+  - devops
+screenshots: []
+tags:
+  - deployment
+  - automation
+questions:
+  portals:
+    web_portal:
+      protocols:
+        - "http"
+      host:
+        - "$node_ip"
+      ports:
+        - "$variable-dokployNetwork.httpPort"

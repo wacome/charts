@@ -1,0 +1,10 @@
+{
+    "latest": {
+      "chart_version": "1.0.0",
+      "app_version": "latest"
+    },
+    "1.0.0": {
+      "chart_version": "1.0.0",
+      "app_version": "latest"
+    }
+  }
