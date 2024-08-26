@@ -170,11 +170,11 @@ questions:
                 label: CPU
                 schema:
                   type: string
-                  default: "1000m"
+                  default: "6000m"
                   required: true
               - variable: memory
                 label: Memory
                 schema:
                   type: string
-                  default: "1Gi"
+                  default: "16Gi"
                   required: true
