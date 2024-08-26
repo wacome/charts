@@ -39,6 +39,16 @@ questions:
             type: string
             default: "dokploy_node"
             required: true
+        - variable: npmRegistry
+          label: "NPM Registry"
+          schema:
+            type: string
+            default: "https://registry.npmmirror.com"
+        - variable: pnpmRegistry
+          label: "PNPM Registry"
+          schema:
+            type: string
+            default: "https://registry.npmmirror.com"
         - variable: additionalEnvs
           label: Additional Environment Variables
           description: Configure additional environment variables for Dokploy.

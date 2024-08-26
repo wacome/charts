@@ -6,6 +6,8 @@ image:
 dokployConfig:
   password: ""
   nodeName: "dokploy_node"
+  npmRegistry: "https://registry.npmmirror.com"
+  pnpmRegistry: "https://registry.npmmirror.com"
   additionalEnvs: []
 
 dokployNetwork:

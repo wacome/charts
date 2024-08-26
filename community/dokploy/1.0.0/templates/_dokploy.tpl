@@ -18,6 +18,8 @@ workload:
           env:
             DOKPLOY_PASSWORD: {{ .Values.dokployConfig.password }}
             DOKPLOY_NODE_NAME: {{ .Values.dokployConfig.nodeName }}
+            NPM_CONFIG_REGISTRY: {{ .Values.dokployConfig.npmRegistry }}
+            PNPM_REGISTRY: {{ .Values.dokployConfig.pnpmRegistry }}
           {{ with .Values.dokployConfig.additionalEnvs }}
           envList:
             {{ range $env := . }}
