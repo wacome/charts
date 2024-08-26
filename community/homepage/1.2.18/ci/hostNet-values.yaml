@@ -1,7 +1,0 @@
-homepageNetwork:
-  webPort: 30000
-  hostNetwork: true
-
-homepageStorage:
-  config:
-    type: pvc

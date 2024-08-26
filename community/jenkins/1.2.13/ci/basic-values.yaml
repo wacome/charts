@@ -1,3 +1,0 @@
-jenkinsStorage:
-  home:
-    type: pvc

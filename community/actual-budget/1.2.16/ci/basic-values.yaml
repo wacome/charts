@@ -1,7 +1,0 @@
-actualRunAs:
-  user: 1000
-  group: 1000
-
-actualStorage:
-  data:
-    type: pvc

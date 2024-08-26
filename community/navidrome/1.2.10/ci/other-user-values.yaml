@@ -1,9 +1,0 @@
-navidromeStorage:
-  data:
-    type: pvc
-  music:
-    type: pvc
-
-navidromeRunAs:
-  user: 1000
-  group: 1000

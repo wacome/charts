@@ -1,7 +1,0 @@
-organizrID:
-  user: 568
-  group: 568
-
-organizrStorage:
-  config:
-    type: pvc

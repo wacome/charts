@@ -1,7 +1,0 @@
-fscrawlerStorage:
-  jobs:
-    type: pvc
-
-fscrawlerConfig:
-  jobName: test
-  imageSelector: noocrImage

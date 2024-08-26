@@ -1,8 +1,0 @@
-navidromeStorage:
-  data:
-    type: pvc
-  music:
-    type: pvc
-
-navidromeConfig:
-  uiWelcomeMessage: 'Welcome to Navidrome!'

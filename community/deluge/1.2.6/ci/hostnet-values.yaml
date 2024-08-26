@@ -1,8 +1,0 @@
-delugeStorage:
-  config:
-    type: pvc
-  downloads:
-    type: pvc
-
-delugeNetwork:
-  hostNetwork: true
