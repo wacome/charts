@@ -9,7 +9,8 @@ dokployConfig:
   additionalEnvs: []
 
 dokployNetwork:
-  httpPort: 3000
+  httpPort: 9000
+  targetPort: 3000
   hostNetwork: false
   certificateID: null
 
@@ -45,7 +46,8 @@ securityContext:
 
 service:
   type: ClusterIP
-  port: 3000
+  port: 9000
+  targetPort: 3000
 
 ingress:
   enabled: false

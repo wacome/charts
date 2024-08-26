@@ -30,17 +30,17 @@ workload:
               enabled: true
               type: http
               path: /healthz
-              port: {{ .Values.dokployNetwork.httpPort }}
+              port: {{ .Values.dokployNetwork.targetPort }}
             readiness:
               enabled: true
               type: http
               path: /healthz
-              port: {{ .Values.dokployNetwork.httpPort }}
+              port: {{ .Values.dokployNetwork.targetPort }}
             startup:
               enabled: true
               type: http
               path: /healthz
-              port: {{ .Values.dokployNetwork.httpPort }}
+              port: {{ .Values.dokployNetwork.targetPort }}
 
 service:
   dokploy:
@@ -54,7 +54,7 @@ service:
         primary: true
         port: {{ .Values.dokployNetwork.httpPort }}
         nodePort: {{ .Values.dokployNetwork.httpPort }}
-        targetPort: {{ .Values.dokployNetwork.httpPort }}
+        targetPort: {{ .Values.dokployNetwork.targetPort }}
 
 persistence:
   data:

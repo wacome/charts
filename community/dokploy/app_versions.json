@@ -1,10 +1,307 @@
 {
-    "latest": {
-      "chart_version": "1.0.0",
-      "app_version": "latest"
+  "1.0.0": {
+    "healthy": true,
+    "supported": true,
+    "healthy_error": null,
+    "location": "/__w/charts/charts/dokploy/1.0.0",
+    "last_update": "2023-05-15 12:00:00",
+    "required_features": ["normalize/acl", "normalize/ixVolume"],
+    "human_version": "latest_1.0.0",
+    "version": "1.0.0",
+    "chart_metadata": {
+      "name": "dokploy",
+      "description": "Dokploy is a continuous deployment tool for efficient application deployment",
+      "annotations": {
+        "title": "Dokploy"
+      },
+      "type": "application",
+      "version": "1.0.0",
+      "apiVersion": "v2",
+      "appVersion": "latest",
+      "kubeVersion": ">=1.16.0-0",
+      "maintainers": [
+        {
+          "name": "yourusername",
+          "url": "https://github.com/yourusername",
+          "email": "your.email@example.com"
+        }
+      ],
+      "dependencies": [
+        {
+          "name": "common",
+          "repository": "file://../../../common",
+          "version": "1.2.9"
+        }
+      ],
+      "home": "https://github.com/yourusername/dokploy",
+      "icon": "https://your-icon-url.com/dokploy-icon.png",
+      "sources": ["https://github.com/yourusername/dokploy"],
+      "keywords": ["deployment", "devops"]
     },
-    "1.0.0": {
-      "chart_version": "1.0.0",
-      "app_version": "latest"
-    }
+    "app_metadata": {
+      "runAsContext": [
+        {
+          "userName": "dokploy",
+          "groupName": "dokploy",
+          "gid": 1000,
+          "uid": 1000,
+          "description": "Dokploy runs as a non-root user."
+        }
+      ],
+      "capabilities": [],
+      "hostMounts": []
+    },
+    "schema": {
+      "groups": [
+        {
+          "name": "Dokploy Configuration",
+          "description": "Configure Dokploy"
+        },
+        {
+          "name": "Network Configuration",
+          "description": "Configure Network for Dokploy"
+        },
+        {
+          "name": "Storage Configuration",
+          "description": "Configure Storage for Dokploy"
+        },
+        {
+          "name": "Resources Configuration",
+          "description": "Configure Resources for Dokploy"
+        }
+      ],
+      "portals": {
+        "web_portal": {
+          "protocols": ["$kubernetes-resource_configmap_portal_protocol"],
+          "host": ["$kubernetes-resource_configmap_portal_host"],
+          "ports": ["$kubernetes-resource_configmap_portal_port"],
+          "path": "$kubernetes-resource_configmap_portal_path"
+        }
+      },
+      "questions": [
+        {
+          "variable": "dokployConfig",
+          "label": "",
+          "group": "Dokploy Configuration",
+          "schema": {
+            "type": "dict",
+            "attrs": [
+              {
+                "variable": "password",
+                "label": "Password",
+                "description": "The password for Dokploy.",
+                "schema": {
+                  "type": "string",
+                  "default": "",
+                  "required": true
+                }
+              },
+              {
+                "variable": "nodeName",
+                "label": "Node Name",
+                "description": "The name of the Dokploy node.",
+                "schema": {
+                  "type": "string",
+                  "default": "dokploy_node",
+                  "required": true
+                }
+              },
+              {
+                "variable": "additionalEnvs",
+                "label": "Additional Environment Variables",
+                "description": "Configure additional environment variables for Dokploy.",
+                "schema": {
+                  "type": "list",
+                  "default": [],
+                  "items": [
+                    {
+                      "variable": "env",
+                      "label": "Environment Variable",
+                      "schema": {
+                        "type": "dict",
+                        "attrs": [
+                          {
+                            "variable": "name",
+                            "label": "Name",
+                            "schema": {
+                              "type": "string",
+                              "required": true
+                            }
+                          },
+                          {
+                            "variable": "value",
+                            "label": "Value",
+                            "schema": {
+                              "type": "string",
+                              "required": true
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "variable": "dokployNetwork",
+          "label": "",
+          "group": "Network Configuration",
+          "schema": {
+            "type": "dict",
+            "attrs": [
+              {
+                "variable": "httpPort",
+                "label": "HTTP Port",
+                "description": "The port for Dokploy HTTP",
+                "schema": {
+                  "type": "int",
+                  "default": 9000,
+                  "min": 9000,
+                  "max": 65535,
+                  "required": true
+                }
+              },
+              {
+                "variable": "targetPort",
+                "label": "Internal Container Port",
+                "description": "The internal port Dokploy uses inside the container",
+                "schema": {
+                  "type": "int",
+                  "default": 3000,
+                  "required": true
+                }
+              },
+              {
+                "variable": "hostNetwork",
+                "label": "Host Network",
+                "description": "Bind to the host network. It's recommended to keep this disabled.",
+                "schema": {
+                  "type": "boolean",
+                  "default": false
+                }
+              }
+            ]
+          }
+        },
+        {
+          "variable": "dokployStorage",
+          "label": "",
+          "group": "Storage Configuration",
+          "schema": {
+            "type": "dict",
+            "attrs": [
+              {
+                "variable": "data",
+                "label": "Dokploy Data Storage",
+                "description": "The path to store Dokploy data.",
+                "schema": {
+                  "type": "dict",
+                  "attrs": [
+                    {
+                      "variable": "type",
+                      "label": "Type",
+                      "schema": {
+                        "type": "string",
+                        "default": "ixVolume",
+                        "enum": [
+                          {
+                            "value": "hostPath",
+                            "description": "Host Path"
+                          },
+                          {
+                            "value": "ixVolume",
+                            "description": "iX Volume"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "variable": "ixVolumeConfig",
+                      "label": "iX Volume Configuration",
+                      "schema": {
+                        "type": "dict",
+                        "show_if": [["type", "=", "ixVolume"]],
+                        "attrs": [
+                          {
+                            "variable": "datasetName",
+                            "label": "Dataset Name",
+                            "schema": {
+                              "type": "string",
+                              "default": "data",
+                              "required": true
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "variable": "hostPathConfig",
+                      "label": "Host Path Configuration",
+                      "schema": {
+                        "type": "dict",
+                        "show_if": [["type", "=", "hostPath"]],
+                        "attrs": [
+                          {
+                            "variable": "hostPath",
+                            "label": "Host Path",
+                            "schema": {
+                              "type": "hostpath",
+                              "required": true
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "variable": "resources",
+          "label": "",
+          "group": "Resources Configuration",
+          "schema": {
+            "type": "dict",
+            "attrs": [
+              {
+                "variable": "limits",
+                "label": "Limits",
+                "schema": {
+                  "type": "dict",
+                  "attrs": [
+                    {
+                      "variable": "cpu",
+                      "label": "CPU",
+                      "schema": {
+                        "type": "string",
+                        "default": "1000m",
+                        "required": true
+                      }
+                    },
+                    {
+                      "variable": "memory",
+                      "label": "Memory",
+                      "schema": {
+                        "type": "string",
+                        "default": "1Gi",
+                        "required": true
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "app_readme": "<h1>Dokploy</h1>\n<p><a href=\"https://github.com/yourusername/dokploy\">Dokploy</a> is a continuous deployment tool designed for easy and efficient deployment of applications.</p>",
+    "detailed_readme": "<h1>Dokploy</h1>\n<p><a href=\"https://github.com/yourusername/dokploy\">Dokploy</a> is a continuous deployment tool designed for easy and efficient deployment of applications.</p>\n<h2>Features</h2>\n<ul>\n<li>Easy deployment management</li>\n<li>Continuous integration support</li>\n<li>Customizable workflows</li>\n</ul>\n<p>For more information, please visit <a href=\"https://github.com/yourusername/dokploy\">Dokploy GitHub Repository</a>.</p>",
+    "changelog": null
   }
+}

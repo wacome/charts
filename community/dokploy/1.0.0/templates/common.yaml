@@ -1,7 +1,12 @@
 {{- include "ix.v1.common.loader.init" . -}}
 
 {{/* Merge the templates with Values */}}
-{{- $_ := mustMergeOverwrite .Values (include "dokploy.workload" $ | fromYaml) -}}
+{{- $workload := fromYaml (include "dokploy.workload" $) -}}
+{{- $ports := fromYaml (include "dokploy.container.ports" (dict "rootCtx" $ "objectData" .Values)) -}}
+
+{{- $mergedWorkload := mustMergeOverwrite $workload (dict "workload" (dict "dokploy" (dict "podSpec" (dict "containers" (dict "dokploy" $ports))))) -}}
+
+{{- $_ := mustMergeOverwrite .Values $mergedWorkload -}}
 
 {{/* Create the configmap for portal manually*/}}
 {{- include "dokploy.portal" $ -}}

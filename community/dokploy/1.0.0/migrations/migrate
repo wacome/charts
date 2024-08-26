@@ -4,7 +4,53 @@ import os
 import sys
 
 def migrate(values):
-    # 在这里添加任何必要的迁移逻辑
+    """
+    Migrate old values to new values
+    """
+    migrations = [
+        migrate_1_0_0,
+        # Add more migration functions here for future versions
+    ]
+
+    for migrate_func in migrations:
+        values = migrate_func(values)
+
+    return values
+
+def migrate_1_0_0(values):
+    """
+    Migrate to version 1.0.0
+    """
+    # Example migration: rename 'oldKey' to 'newKey'
+    if 'oldKey' in values:
+        values['newKey'] = values.pop('oldKey')
+
+    # Example migration: update storage configuration
+    if 'dokployStorage' in values:
+        if 'data' in values['dokployStorage']:
+            old_storage = values['dokployStorage']['data']
+            new_storage = {
+                'type': old_storage.get('type', 'ixVolume'),
+                'ixVolumeConfig': {
+                    'datasetName': old_storage.get('datasetName', 'data')
+                }
+            }
+            values['dokployStorage']['data'] = new_storage
+
+    # Example migration: update network configuration
+    if 'dokployNetwork' in values:
+        network = values['dokployNetwork']
+        if 'port' in network:
+            network['httpPort'] = network.pop('port')
+
+    # Example migration: update resource limits
+    if 'resources' in values:
+        resources = values['resources']
+        if 'limits' in resources:
+            limits = resources['limits']
+            if 'cpu' in limits and not limits['cpu'].endswith('m'):
+                limits['cpu'] = f"{int(float(limits['cpu']) * 1000)}m"
+
     return values
 
 if __name__ == '__main__':
@@ -13,4 +59,8 @@ if __name__ == '__main__':
 
     if os.path.exists(sys.argv[1]):
         with open(sys.argv[1], 'r') as f:
-            print(json.dumps(migrate(json.loads(f.read()))))
+            values = json.loads(f.read())
+
+        values = migrate(values)
+
+        print(json.dumps(values, indent=2))
