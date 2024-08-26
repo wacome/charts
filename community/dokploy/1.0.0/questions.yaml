@@ -19,23 +19,6 @@ portals:
     path: "$kubernetes-resource_configmap_portal_path"
 
 questions:
-  - variable: redis
-    label: "Redis Configuration"
-    group: "Redis Settings"
-    schema:
-      type: dict
-      attrs:
-        - variable: enabled
-          label: "Enable Redis"
-          schema:
-            type: boolean
-            default: true
-        - variable: password
-          label: "Redis Password"
-          schema:
-            type: string
-            private: true
-            show_if: [["enabled", "=", true]]
   - variable: dokployConfig
     label: ""
     group: Dokploy Configuration
@@ -56,18 +39,6 @@ questions:
             type: string
             default: "dokploy_node"
             required: true
-        - variable: redisHost
-          label: "Redis Host"
-          schema:
-            type: string
-            default: "dokploy-redis"
-            show_if: [["redis.enabled", "=", true]]
-        - variable: redisPort
-          label: "Redis Port"
-          schema:
-            type: int
-            default: 6379
-            show_if: [["redis.enabled", "=", true]]
         - variable: npmRegistry
           label: "NPM Registry"
           schema:

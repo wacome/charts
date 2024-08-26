@@ -13,9 +13,6 @@ dokployConfig:
   nodeName: dokploy_node
   npmRegistry: "https://registry.npmmirror.com"
   pnpmRegistry: "https://registry.npmmirror.com"
-  redis_host: "dokploy-redis"
-  redis_port: 6379
-  redis_password: "2469"
   additionalEnvs: []
 
 dokployRunAs:

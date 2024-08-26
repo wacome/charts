@@ -11,9 +11,4 @@
 {{/* Create the configmap for portal manually*/}}
 {{- include "dokploy.portal" $ -}}
 
-{{- if .Values.redis.enabled }}
-{{/* Include Redis configuration */}}
-{{- $_ := set .Values "redis" (deepCopy .Values.redis) -}}
-{{- end }}
-
 {{- include "ix.v1.common.loader.apply" . -}}
